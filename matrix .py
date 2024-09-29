@@ -3,7 +3,7 @@ import time
 from huggingface_hub import InferenceApi
 
 # Hugging Face API Token (replace with your actual token)
-HF_API_TOKEN = "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"  # Replace with your API token
+HF_API_TOKEN = "your_huggingface_api_token "  # Replace with your API token
 
 # Create an instance of the Hugging Face Inference API for the Dolphin Mistral model
 model_name = "mistralai/Mistral-7B-v0.1"  # The Mistral model hosted on Hugging Face
