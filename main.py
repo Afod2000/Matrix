@@ -12,16 +12,9 @@ g = "\033[0;90m"
 y = r
 
 #-------------modules
-import requests
+ import requests
 import time
 from huggingface_hub import InferenceApi
-
-# Hugging Face API Token (replace with your actual token)
-HF_API_TOKEN = "your_huggingface_api_token"  # Replace with your API token
-
-# Create an instance of the Hugging Face Inference API for the Dolphin Mistral model
-model_name = "mistralai/Mistral-7B-v0.1"  # The Mistral model hosted on Hugging Face
-inference = InferenceApi(repo_id=model_name, token=HF_API_TOKEN)
 
 # Function to print in dot-matrix style
 def dot_matrix_print(message):
@@ -63,11 +56,14 @@ def access_hidden_wiki(url):
         return None
 
 # Function to use Dolphin Mistral LLM via Hugging Face API to analyze the Hidden Wiki content and generate code
-def generate_code(content, language):
+def generate_code(content, language, hf_api_token):
     dot_matrix_print("Generating code or scripts based on hidden knowledge...")
 
     try:
         # Use Hugging Face Inference API to query the Dolphin Mistral model with the content and target language
+        model_name = "mistralai/Mistral-7B-v0.1"  # The Mistral model hosted on Hugging Face
+        inference = InferenceApi(repo_id=model_name, token=hf_api_token)
+
         prompt = (
             f"Analyze the following content and generate a {language} code snippet or script:\n\n{content}\n\n"
             "Make sure the code is functional and well-commented."
@@ -83,6 +79,12 @@ def generate_code(content, language):
 
 # Main Program Flow
 def mr_matrix():
+    # Request Hugging Face API key
+    hf_api_token = input("Please enter your Hugging Face API key: ").strip()
+    if not hf_api_token:
+        dot_matrix_print("API key is required to proceed. Exiting...")
+        return
+
     dot_matrix_print("Mr. Matrix delves into the shadowy depths...")
 
     # Access the Hidden Wiki
@@ -100,7 +102,7 @@ def mr_matrix():
             return
 
         # Generate code based on the Hidden Wiki content for the specified language
-        generated_code = generate_code(hidden_wiki_content, language)
+        generated_code = generate_code(hidden_wiki_content, language, hf_api_token)
 
         # Display the generated code in dot-matrix style
         dot_matrix_print("Generated Code:")
